@@ -1,12 +1,15 @@
 module EchogramProcessing
 
-export vertically_smooth, vertically_bin, IN
+export vertically_smooth, vertically_bin, IN, dB2linear, linear2dB
     
 """
     vertically_smooth(A, r, thickness)
 
 Taking an echogram array `A` and a range vector `r`, smooth values
 vertically by taking the mean over succesive `thickness` bins.
+
+N.B. if your data is in dB, consider converting to linear (perhaps
+using `dB2linear`).
 
 """
 function vertically_smooth(A, r, thickness)
@@ -23,6 +26,9 @@ end
 
 Taking an echogram array `A` and a range vector `r`, bin values
 vertically by taking the mean over succesive `thickness` sized bins.
+
+N.B. if your data is in dB, consider converting to linear (perhaps
+using `dB2linear`).
 
 """
 function vertically_bin(A, r, thickness)
@@ -61,6 +67,25 @@ function IN(A, delta)
     m2 = (b.-c) .> delta
 
     hcat(falses(m), m1 .& m2, falses(m))
+end
+
+"""
+    dB2linear(x)
+
+Convert from decibels (dB) to linear measure.
+
+"""
+function dB2linear(x)
+    10^(x/10)
+end
+
+"""
+    linear2dB(x)
+
+Convert from linear measure to decibels (dB).
+"""
+function linear2dB(x)
+    10log10(x)
 end
 
 end # module
