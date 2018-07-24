@@ -1,6 +1,7 @@
 module EchogramProcessing
 
-export vertically_smooth, vertically_bin, IN, dB2linear, linear2dB
+export vertically_smooth, vertically_bin, IN, db2pow, pow2db, mag2db, db2mag
+
     
 """
     vertically_smooth(A, r, thickness)
@@ -52,7 +53,7 @@ resolution (perhaps using `vertically_smooth`) before calling IN.
 
 `A` is an echogram array and `delta` is the threshold. A sample is
 marked as true if its value is more than `delta` greater than samples
-on eith side.
+on either side.
 
 Returns a `BitArray` with the same dimensions as `A`.
 
@@ -70,22 +71,33 @@ function IN(A, delta)
 end
 
 """
-    dB2linear(x)
+    db2pow(ydb)
 
-Convert from decibels (dB) to linear measure.
+Convert decibels to power
+"""
+db2pow(ydb) = 10^(ydb/10)
 
 """
-function dB2linear(x)
-    10^(x/10)
-end
+    pow2db(y)
+
+Convert power to decibels.
+"""
+pow2db(y) = 10log10(y)
 
 """
-    linear2dB(x)
+    mag2db(y)
 
-Convert from linear measure to decibels (dB).
+Convert magnitude to decibels.
 """
-function linear2dB(x)
-    10log10(x)
-end
+mag2db(y) = 20log10(y)
+
+"""
+    db2mag(ydb)
+
+Convert decibels to magnitude.
+"""
+db2mag(ydb) = 10^(ydb/20)
+
+
 
 end # module
