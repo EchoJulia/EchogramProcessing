@@ -1,6 +1,7 @@
 module EchogramProcessing
 
-export vertically_smooth, vertically_bin, IN, db2pow, pow2db, mag2db, db2mag
+export vertically_smooth, vertically_bin, IN, db2pow, pow2db, mag2db,
+db2mag, linearav
 
     
 """
@@ -97,6 +98,27 @@ mag2db(y) = 20log10(y)
 Convert decibels to magnitude.
 """
 db2mag(ydb) = 10^(ydb/20)
+
+"""
+    linearav(db, height, width)
+
+Averaging of an echogram in the linear domain with a window size of
+height x width.
+
+Remember, the Average of the Log is Not the Log of the Average!
+"""
+function linearav(db, height, width)
+
+    a = db2pow.(db)
+
+    kernel  = Array{Float64}(height, width)
+    kernel .= 1 / (width * height)
+    kernel = centered(kernel)
+
+    a = imfilter(a, kernel, Fill(0))
+
+    pow2db.(a)
+end
 
 
 
