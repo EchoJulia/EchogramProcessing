@@ -3,7 +3,9 @@ module EchogramProcessing
 export vertically_smooth, vertically_bin, IN, db2pow, pow2db, mag2db,
 db2mag, linearav
 
-    
+using Images
+using ImageFiltering
+
 """
     vertically_smooth(A, r, thickness)
 
