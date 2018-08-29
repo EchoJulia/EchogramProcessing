@@ -1,7 +1,9 @@
 using EchogramProcessing
-@static if VERSION < v"0.7.0-DEV.2005"
-    using Base.Test
-else
-    using Test
-end
+using Test
+
+a = rand(100, 100)
+
+medianfilter(a, 9, 9)
+
+meanfilter(a, 9, 9)
 

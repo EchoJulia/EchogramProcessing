@@ -5,9 +5,10 @@ export meanfilter, medianfilter, meanfilterdb
 using Images
 using ImageFiltering
 using EchogramUtils
+using Statistics
 
 function meanfilter(A, height, width)
-    kernel  = Array{Float64}(height, width)
+    kernel  = Array{Float64}(undef, height, width)
     kernel .= 1 / (width * height)
     kernel = centered(kernel)
     imfilter(A, kernel, Fill(0))
