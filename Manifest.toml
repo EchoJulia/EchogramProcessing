@@ -1,8 +1,6 @@
 [[EchogramUtils]]
-deps = ["Test"]
 git-tree-sha1 = "c3052b138be3f3d791425448b6adc3dbd864673b"
 repo-rev = "master"
 repo-url = "https://github.com/EchoJulia/EchogramUtils.jl"
 uuid = "98433ae5-64ae-5f75-927a-48d3260c7151"
 version = "0.0.0"
-
