@@ -1,4 +1,5 @@
 [[EchogramUtils]]
+deps = [] 
 git-tree-sha1 = "c3052b138be3f3d791425448b6adc3dbd864673b"
 repo-rev = "master"
 repo-url = "https://github.com/EchoJulia/EchogramUtils.jl"
