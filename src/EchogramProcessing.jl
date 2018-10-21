@@ -1,6 +1,6 @@
 module EchogramProcessing
 
-export meanfilter, medianfilter, meanfilterdb
+export meanfilter, medianfilter, meanfilterdb, removeholes
 
 using Images
 using ImageFiltering
@@ -30,6 +30,36 @@ function meanfilterdb(db, height, width)
     pow2db.(b)
 end
 
+"""
+    removeholes(A; min=9)
 
+Remove holes in binary array A.
+
+e.g.
+
+```
+    removeholes([1 1 1; 1 0 1; 1 1 1])
+
+    3×3 Array{Int64,2}:
+     1  1  1
+     1  1  1
+     1  1  1
+```
+"""
+function removeholes(A; min=9)
+    c = copy(A)
+    A= 1 .- A # invert
+
+    # Label background regions
+    labels = label_components(A)
+    for i in 1:maximum(labels)
+        b = (labels .== i)
+        # Remove small regions
+        if sum(b) <= min
+            c[b] .= 1
+        end
+    end
+    return c
+end
 
 end # module
